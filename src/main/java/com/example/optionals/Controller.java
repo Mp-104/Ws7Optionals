@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -34,7 +35,9 @@ public class Controller {
         List<Optional<User>> userList = new ArrayList<>();
         userList.add(user);
 
-        if (user.isPresent()) {
+        userRepository.existsById(id);
+
+        if (user.isPresent() || userRepository.existsById(id)) {
 
             // Converts Optional<User> to User
             User tempUser = user.get();
@@ -52,6 +55,11 @@ public class Controller {
                         new ErrorResponse("""
                             The user did not exist, try again!"""));
 
+    }
+
+    public ResponseEntity<User> postUser (@RequestBody User user) {
+
+        return ResponseEntity.ok(userRepository.save(user));
     }
 
 }

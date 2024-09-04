@@ -9,6 +9,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private String username;
+    private String password;
+    private boolean isEnabled;
+
 
     public User () {}
 
@@ -17,7 +21,7 @@ public class User {
         this.password = password;
     }
 
-    private String username;
+
 
     public String getUsername() {
         return username;
@@ -34,7 +38,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    private String password;
 
 }
